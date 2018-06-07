@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/login/login_presenter.dart';
 import 'package:flutter_sample_app/login/token.dart';
+import 'package:flutter_sample_app/utils/restapi.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -120,34 +121,12 @@ class _LoginScreenState extends State<LoginScreen> implements LoginScreenContrac
     if (form.validate()) {
       setState(() => _isLoading = true);
       form.save();
-      try {
-         String BASE_URL = "http://api.pickcargo.in/api/";
-         String LOGIN = "master/customer/login";
-         final LOGIN_URL = BASE_URL + LOGIN;
-        post(LOGIN_URL, body: {
-          "MobileNo": "9291570524",
-          "Password": "Pickc@123",
-        },
-          headers: {
-            "Content-Type":"application/json"
-          },).then((dynamic res){
-          setState(() => _isLoading = false);
-          _showSnackBar(res);
-            print(res);
-        });
-
-       // _presenter = new LoginScreenPresenter(this);
-       // _presenter.doLogin(/*_userName*/"9291570524", /*_password*/"Pickc@123");
-      } catch (e) {
-        setState(() => _isLoading = false);
-        _showSnackBar(e);
-       debugPrint("Exception"+e);
-      }
+     Navigator.pushReplacementNamed(context, "/home");
     }
   }
 
-  Future<dynamic> post(String url, {Map headers, body, encoding})  {
-    return  http.post(url, body: body, headers: headers, encoding: encoding).then((http.Response response) {
+  Future<dynamic> post(String url, {Map headers, body, encoding}) async {
+    return await http.post(url, body: body, headers: headers, encoding: encoding).then((http.Response response) {
       final String res = response.body;
       final int statusCode = response.statusCode;
 

@@ -9,7 +9,6 @@ class SharedPref{
   static void setUserName(String name){
     SharedPreferences prefs =  SharedPreferences.getInstance() as SharedPreferences;
     prefs.setString("name", name);
-    prefs.commit();
   }
 
 }
