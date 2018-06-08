@@ -1,12 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/login/login_presenter.dart';
 import 'package:flutter_sample_app/login/token.dart';
-import 'package:flutter_sample_app/utils/restapi.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter_sample_app/utils/network.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -34,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginScreenContrac
   Widget build(BuildContext context) {
     _ctx = context;
     var loginBtn = new RaisedButton(
-      onPressed: _submit,
+      onPressed: _login,
       child: new Text("LOGIN"),
       color: Colors.primaries[0],
     );
@@ -52,11 +51,11 @@ class _LoginScreenState extends State<LoginScreen> implements LoginScreenContrac
                 padding: const EdgeInsets.all(8.0),
                 child: new TextFormField(
                   onSaved: (val) => _userName = val,
-                  validator: (val) {
+                 /* validator: (val) {
                     return val.length < 10
                         ? "Username must have atleast 10 chars"
                         : null;
-                  },
+                  },*/
                   decoration: new InputDecoration(labelText: "Username"),
                 ),
               ),
@@ -115,28 +114,20 @@ class _LoginScreenState extends State<LoginScreen> implements LoginScreenContrac
 
   }
 
-  void _submit() {
-    final form = formKey.currentState;
+  /* void _login(){
+    Navigator.of(_ctx).pushReplacementNamed("/home");
+  }*/
 
-    if (form.validate()) {
-      setState(() => _isLoading = true);
-      form.save();
-     Navigator.pushReplacementNamed(context, "/home");
-    }
-  }
+  Future<dynamic> _login(){
 
-  Future<dynamic> post(String url, {Map headers, body, encoding}) async {
-    return await http.post(url, body: body, headers: headers, encoding: encoding).then((http.Response response) {
-      final String res = response.body;
-      final int statusCode = response.statusCode;
-
-      print("res"+response.body+""+statusCode.toString());
-
-      if (statusCode < 200 || statusCode > 400 || json == null) {
-        throw new Exception("Error while fetching data");
-      }
-      return new JsonDecoder().convert(res);
+    const BASE_URL = 'http://api.pickcargo.in/api/master/customer/login';
+    NetworkUtil _netUtil = new NetworkUtil();
+    var body = {'MobileNo': "9291570524", 'Password': "Pickc@123"};
+    final encoding = "application/json";
+    return _netUtil.post(BASE_URL, body: body,encoding: Encoding.getByName(encoding)).then((dynamic res) {
+      print("Result "+res.toString());
     });
+
   }
 
   void _showSnackBar(String text) {
