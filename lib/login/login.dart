@@ -78,11 +78,11 @@ class _LoginScreenState extends State<LoginScreen> implements LoginScreenContrac
       appBar: null,
       key: scaffoldKey,
       body: new Container(
-        decoration: new BoxDecoration(
+      /*  decoration: new BoxDecoration(
           image: new DecorationImage(
               image: new AssetImage("assets/bg.jpg"),
               fit: BoxFit.cover),
-        ),
+        ),*/
         child: new Center(
           child: new ClipRect(
             child: new BackdropFilter(
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginScreenContrac
   @override
   void onLoginError(String errorTxt) {
     _showSnackBar(errorTxt);
-    setState(() => _isLoading = false);
+     setState(() => _isLoading = false);
   }
 
   @override

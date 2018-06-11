@@ -11,7 +11,7 @@ Future<EventObject> loginUserHere() async {
     final response = await http.post(
         "http://api.pickcargo.in/api/master/customer/login",
         body: body,
-        encoding: Encoding.getByName(encoding));
+          encoding: Encoding.getByName(encoding));
     if (response != null) {
       if (response.statusCode == 200) {
         final responseJson = json.decode(response.body);

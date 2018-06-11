@@ -4,6 +4,7 @@ class Token{
 
   Token(this.token, this.status);
 
+
   Token.map(dynamic obj) {
     this.token = obj["Token"];
     this.status = obj["Status"];
