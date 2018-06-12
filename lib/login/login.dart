@@ -37,41 +37,45 @@ class _LoginScreenState extends State<LoginScreen> implements LoginScreenContrac
       child: new Text("LOGIN"),
       color: Colors.primaries[0],
     );
-    var loginForm = new Column(
-      children: <Widget>[
-        new Text(
-          "Login App",
-          textScaleFactor: 2.0,
-        ),
-        new Form(
-          key: formKey,
-          child: new Column(
-            children: <Widget>[
-              new Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: new TextFormField(
-                  onSaved: (val) => _userName = val,
-                 /* validator: (val) {
-                    return val.length < 10
-                        ? "Username must have atleast 10 chars"
-                        : null;
-                  },*/
-                  decoration: new InputDecoration(labelText: "Username"),
-                ),
-              ),
-              new Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: new TextFormField(
-                  onSaved: (val) => _password = val,
-                  decoration: new InputDecoration(labelText: "Password"),
-                ),
-              ),
-            ],
+    var loginForm = new Container(
+
+
+      child: new Column(
+        children: <Widget>[
+          new Text(
+            "Login App",
+            textScaleFactor: 2.0,
           ),
-        ),
-        _isLoading ? new CircularProgressIndicator() : loginBtn
-      ],
-      crossAxisAlignment: CrossAxisAlignment.center,
+          new Form(
+            key: formKey,
+            child: new Column(
+              children: <Widget>[
+                new Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new TextFormField(
+                    onSaved: (val) => _userName = val,
+                   /* validator: (val) {
+                      return val.length < 10
+                          ? "Username must have atleast 10 chars"
+                          : null;
+                    },*/
+                    decoration: new InputDecoration(labelText: "Username"),
+                  ),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new TextFormField(
+                    onSaved: (val) => _password = val,
+                    decoration: new InputDecoration(labelText: "Password"),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _isLoading ? new CircularProgressIndicator() : loginBtn
+        ],
+        crossAxisAlignment: CrossAxisAlignment.center,
+      ),
     );
 
     return new Scaffold(

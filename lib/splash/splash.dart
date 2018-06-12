@@ -100,6 +100,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void goToLoginPage() {
     // Navigator.of(context).pop();
-    Navigator.of(context).pushReplacementNamed('/home');
+    Navigator.of(context).pushReplacementNamed('/login');
   }
 }
